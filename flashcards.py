@@ -769,7 +769,7 @@ class PlayChoice(ctk.CTkFrame):
         buttons_frame = ctk.CTkFrame(self, fg_color="transparent")
 
         mode_one_button = ChoiceButton(buttons_frame, "Flashcards", lambda :mode_choice("flashcards"))
-        mode_two_button = ChoiceButton(buttons_frame, "Guess", lambda : mode_choice("guess_edit"))
+        mode_two_button = ChoiceButton(buttons_frame, "Guess_edit", lambda : mode_choice("guess"))
 
         # layout
         info_label.pack(pady=100)
