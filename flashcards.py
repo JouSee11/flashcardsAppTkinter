@@ -422,12 +422,18 @@ def save_to_db(name_var):
 
 
 def delete_from_db(variable):
-    delete_bool = messagebox.askyesno("Delete", f"Delete save - {variable.get()}")
-    if delete_bool:
-        cur.execute(f"DROP TABLE \'{variable.get()}\'")
-        conn.commit()
-        variable.set("")
-        pygame.mixer.Sound(DELETE_SOUND_PATH).play().set_volume(volume * 0.2)
+    #check if the table exists
+    try:
+        cur.execute(f"SELECT * FROM {variable.get()}")
+
+        delete_bool = messagebox.askyesno("Delete", f"Delete save - {variable.get()}")
+        if delete_bool:
+            cur.execute(f"DROP TABLE \'{variable.get()}\'")
+            conn.commit()
+            variable.set("")
+            pygame.mixer.Sound(DELETE_SOUND_PATH).play().set_volume(volume * 0.2)
+    except sqlite3.OperationalError:
+        messagebox.showerror("Error ", f"No save named - {variable.get()}")
 
 
 def translate_input(_):
@@ -557,6 +563,9 @@ def delete_cards():
 
 def load_frame():
     global CURRENT_FRAME
+
+    sound_click.play().set_volume(volume)
+
     CURRENT_FRAME = "load"
     app.frame_choice()
 
