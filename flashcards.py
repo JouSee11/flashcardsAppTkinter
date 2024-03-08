@@ -769,7 +769,7 @@ class PlayChoice(ctk.CTkFrame):
         buttons_frame = ctk.CTkFrame(self, fg_color="transparent")
 
         mode_one_button = ChoiceButton(buttons_frame, "Flashcards", lambda :mode_choice("flashcards"))
-        mode_two_button = ChoiceButton(buttons_frame, "Guess_edit1", lambda : mode_choice("guess"))
+        mode_two_button = ChoiceButton(buttons_frame, "Guess", lambda : mode_choice("guess"))
 
         # layout
         info_label.pack(pady=100)
@@ -960,7 +960,6 @@ class PlayGuessFrame(ctk.CTkFrame):
         self.widgets()
 
     def widgets(self):
-        print("here")
         score_var = ctk.IntVar()
         guess_var = ctk.StringVar()
 
@@ -990,6 +989,9 @@ class PlayGuessFrame(ctk.CTkFrame):
         guess_entry = AddInput(game_frame, guess_var)
         guess_entry.configure(width=500, justify="center")
 
+        guess_entry.bind("<Return>", lambda _: next_card_guess(guess_var, next_button, score_var, guess_entry, result_show))
+
+        #titles
         score_title = ctk.CTkLabel(game_frame, font=(FONT_FAMILY, 40, "bold"), text="Your score is:", text_color="white")
         score_label = ctk.CTkLabel(game_frame, font=(FONT_FAMILY, 70, "bold"), textvariable=score_var, text_color="white")
         result_show = ctk.CTkLabel(game_frame, font=(FONT_FAMILY, 30, "bold"), text="")
@@ -1268,7 +1270,6 @@ class SettingsFrame(ctk.CTkFrame):
                 global dictionary
                 flipped_dict = {value: key for key, value in dictionary.items()}
                 dictionary = flipped_dict
-                print(dictionary)
 
             def delete_all_cards():
                 global dictionary
@@ -1302,14 +1303,14 @@ class SettingsFrame(ctk.CTkFrame):
 
             # add check button
             auto_trans_var.trace_add("write", lambda *args: custom_state_option(*args, var=auto_trans_var))
-            SettingsRowCheck(general_settings.subframe, auto_trans_var, "AUTO-TRANSLATE", lambda: print("aa"))
+            SettingsRowCheck(general_settings.subframe, auto_trans_var, "AUTO-TRANSLATE", lambda: print(""))
             # language options
             language_options_frame = ctk.CTkFrame(general_settings.subframe, fg_color="transparent")
             options_widget = SettingsOptionMenu(
                 language_options_frame,
                 ["Czech", "English", "German", "Russian", "Spanish", "Chinese", "Hungarian"],
                 variable=language_var,
-                command=lambda _: print("a"),
+                command=lambda _: print(""),
             )
 
             options_widget.configure(state="disabled")
@@ -1321,20 +1322,20 @@ class SettingsFrame(ctk.CTkFrame):
             general_settings.pack(fill="x", expand=1, pady=7)
 
             # add check button
-            SettingsRowCheck(general_settings.subframe, tts_var, "TEXT TO SPEECH", lambda: print("aa"))
+            SettingsRowCheck(general_settings.subframe, tts_var, "TEXT TO SPEECH", lambda: print(""))
             # language options
             language_options_frame = ctk.CTkFrame(general_settings.subframe, fg_color="transparent")
             options_one = SettingsOptionMenu(
                 language_options_frame,
                 ["None", "Czech", "English", "German", "Russian", "Spanish", "Chinese", "Hungarian"],
                 variable=tts_first_v,
-                command=lambda _: print("aa"),
+                command=lambda _: print(""),
             )
             options_two = SettingsOptionMenu(
                 language_options_frame,
                 ["None", "Czech", "English", "German", "Russian", "Spanish", "Chinese", "Hungarian"],
                 variable=tts_second_v,
-                command=lambda _: print("a"),
+                command=lambda _: print(""),
             )
             language_options_frame.pack(fill="x", expand=1, padx=15, pady=15)
             options_one.pack(fill="x", expand=1, pady=10)

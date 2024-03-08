@@ -47,6 +47,7 @@ class MenuLabel(ctk.CTkLabel):
             font=(FONT_FAMILY, 20, "bold"),
             text_color="white",
             text=text,
+            width=900
         )
 
 
