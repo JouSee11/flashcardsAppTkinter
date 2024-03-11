@@ -131,6 +131,59 @@ def play_frame():
         app.frame_choice()
         return
 
+    CURRENT_FRAME = "play_flashcards"
+    app.frame_choice()
+
+
+def play_frame_guess():
+    global CURRENT_FRAME
+    global app
+    global current_card
+    global dictionary_list
+    global current_side
+
+    # sounds
+    sound_click.play().set_volume(volume)
+
+    current_card = 0
+    dictionary_list = []
+
+    if len(dictionary) > 0:
+        for key, value in dictionary.items():
+            dictionary_list.append((key, value))
+
+        # shuffle the cards
+        random.shuffle(dictionary_list)
+        # make sure that the word fits
+        word = dictionary_list[current_card][0]
+        if 15 < len(word) < 30:
+            word = f"{word[0:15]}-\n{word[15:30]}"
+        elif len(word) > 30:
+            word = f"{word[0:15]}-\n{word[15:30]}-\n{word[30:]}"
+
+        play_word.set(word)
+        play_number.set(f"{current_card + 1}/{len(dictionary_list)}")
+
+        # read the card
+        if tts_var.get() == "on":
+            play_tts(word, 1)
+
+    else:
+        # sound
+        pygame.mixer.Sound(DELETE_SOUND_PATH).play().set_volume(volume * 0.2)
+
+        messagebox.showerror(title="Error", message="You don't have any cards")
+        play_word.set("")
+        play_number.set("No cards")
+        CURRENT_FRAME = "menu"
+        app.frame_choice()
+        return
+
+    CURRENT_FRAME = "play_guess"
+    app.frame_choice()
+
+def initial_play_choice():
+    global CURRENT_FRAME
     CURRENT_FRAME = "play"
     app.frame_choice()
 
@@ -616,9 +669,9 @@ def mark_hard(word_key, button):
 def mode_choice(mode):
     global CURRENT_FRAME
     if mode == "flashcards":
-        CURRENT_FRAME = "play_flashcards"
+        play_frame()
     else:
-        CURRENT_FRAME = "play_guess"
+        play_frame_guess()
 
     app.frame_choice()
 
@@ -748,7 +801,7 @@ class MenuFrame(ctk.CTkFrame):
         # self.place(relx=0, rely=0.15, relwidth=1, relheight=0.7)
 
     def buttons(self):
-        play_button = MenuButton(self, "PLAY", play_frame, "normal")
+        play_button = MenuButton(self, "PLAY", initial_play_choice, "normal")
         cards_button = MenuButton(self, "CARDS", cards_frame, "normal")
         load_button = MenuButton(self, "LOAD CARDS", load_frame, "normal")
         save_button = MenuButton(self, "SAVE CARDS", save_frame, "disabled")
