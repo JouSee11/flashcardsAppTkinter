@@ -131,7 +131,13 @@ def play_frame():
         app.frame_choice()
         return
 
-    CURRENT_FRAME = "play"
+    CURRENT_FRAME = "play_flashcards"
+    app.frame_choice()
+
+
+def play_guess_frame():
+    global CURRENT_FRAME
+    CURRENT_FRAME = "play_guess"
     app.frame_choice()
 
 
@@ -279,7 +285,7 @@ def next_card_guess(guess_var, button_next, score_var, entry, result_show):
     # check if the previous guess is correct
     if guess_var.get().lower() == dictionary[play_word.get()].lower():
         score_var.set(score_var.get() + 1)
-        #show the result in the label
+        # show the result in the label
         result_show.configure(text="Correct", text_color=GREEN_LOAD)
         entry.configure(fg_color=GREEN_LOAD)
         app.update()
