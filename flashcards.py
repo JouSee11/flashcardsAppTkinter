@@ -327,10 +327,12 @@ def next_card_guess(guess_var, button_next, score_var, entry, result_show):
     global current_side
 
     # sounds
-    sound_click.play().set_volume(volume)
+    #sound_click.play().set_volume(volume)
 
     # check if the previous guess is correct
     if guess_var.get().lower() == dictionary[play_word.get()].lower():
+        pygame.mixer.Sound(SUCCESS_SOUND_PATH).play().set_volume(volume)
+
         score_var.set(score_var.get() + 1)
         #show the result in the label
         result_show.configure(text="Correct", text_color=GREEN_LOAD)
@@ -339,6 +341,8 @@ def next_card_guess(guess_var, button_next, score_var, entry, result_show):
         app.after(500, result_show.configure(text=""), entry.configure(fg_color="white"))
 
     else:
+        pygame.mixer.Sound(ERROR_SOUND_PATH).play().set_volume(volume)
+
         result_show.configure(text=f"False, correct was \"{dictionary[play_word.get()]}\"", text_color="red")
         entry.configure(fg_color="red")
         app.update()
@@ -373,7 +377,6 @@ def next_card_guess(guess_var, button_next, score_var, entry, result_show):
         messagebox.showinfo(title="Finished", message=f"You finished with {score_var.get()} points")
         CURRENT_FRAME = "menu"
         app.frame_choice()
-
 
 
 def cards_frame():
