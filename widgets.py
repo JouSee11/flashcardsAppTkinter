@@ -1,4 +1,5 @@
 import customtkinter as ctk
+import customtkinter as ctk
 from settings import *
 import pygame
 from os import walk

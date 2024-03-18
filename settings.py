@@ -53,4 +53,6 @@ FLIP_SOUND_PATH = "audio/card_flip.mp3"
 FINISHED_SOUND_PATH = "audio/game_finished.mp3"
 SAVE_SOUND_PATH = "audio/save-2.mp3"
 SOUNDTRACK_PATH = "audio/soundtracks/CALM.mp3"
+ERROR_SOUND_PATH = "audio/error.mp3"
+
 
