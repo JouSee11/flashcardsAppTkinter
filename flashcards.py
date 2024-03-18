@@ -47,7 +47,6 @@ def start_screen(canvas, label):
     app.frame_choice()
 
 
-
 def change_soundtrack():
     global soundtrack
     soundtrack.stop()
@@ -131,7 +130,7 @@ def play_frame():
         app.frame_choice()
         return
 
-    CURRENT_FRAME = "play_flashcards"
+    CURRENT_FRAME = "play"
     app.frame_choice()
 
 
