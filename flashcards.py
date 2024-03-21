@@ -379,10 +379,9 @@ def next_card_guess(guess_var, button_next, score_var, entry, result_show):
         button_next.configure(state="disabled")
         # messagebox.showinfo(title="Finished", message="All cards exercised")
         current_side = "end"
-        messagebox.showinfo(title="Finished", message=f"You finished with {score_var.get()} points")
+        messagebox.showinfo(title="Finished", message=f"Score: {score_var.get()}/{len(dictionary)} points")
         CURRENT_FRAME = "menu"
         app.frame_choice()
-
 
 def cards_frame():
     global CURRENT_FRAME
