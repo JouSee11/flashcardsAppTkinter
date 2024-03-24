@@ -1009,7 +1009,6 @@ class PlayFrame(ctk.CTkFrame):
 
             # events (click on card)
             self.bind("<Button-1>", lambda _: flip_card(_, self))
-            # self.bind("<Button-1>", flip_color(self))
 
         def widget(self):
             display_word = ctk.CTkLabel(
